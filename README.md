@@ -1,2 +1,3 @@
 # Diplomarbeit_Privat
-Do tua i des ganze kuraz züg ihe
+In diesem GitHub möchte ich Private überlegungen und irgendwelche überarbeitungen einfügen
+
