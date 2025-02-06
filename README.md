@@ -23,7 +23,25 @@ pwm = PWM(Pin(15), freq=1000, duty=512, invert=True)
 ```python
 esp32.GPIO.func_out_sel_cfg[15].inv_sel = 1
 ```
-Keine dieser Varianten wird jedoch von unserem esp unterstützt
+```python
+from machine import Pin, PWM
+import time
+
+# Initialize PWM on GPIO 15 with a frequency of 1 kHz
+pwm = PWM(Pin(15), freq=1000)
+
+# Function to set inverted duty cycle
+def set_inverted_duty(pwm, duty):
+    inverted_duty = 1023 - duty
+    pwm.duty(inverted_duty)
+
+# Example usage
+while True:
+    for duty in range(0, 1024, 100):  # Increase duty cycle
+        set_inverted_duty(pwm, duty)
+        time.sleep(0.5)
+```
+Keine dieser Varianten haben jedoch bis jetzt für uns funktioniert
 ## PIN ein und ausschalten
 Es ist natürlich auch möglich ein PWM auszugeben in dem mann einen Pin einfach nur zum richting zeitpunkt ein und Ausschaltet dies ist führt jedoch zu einem PWM das schlicht und einfach zu langsam und ungenau ist.
 
