@@ -44,5 +44,6 @@ while True:
 Keine dieser Varianten haben jedoch bis jetzt für uns funktioniert
 ## PIN ein und ausschalten
 Es ist natürlich auch möglich ein PWM auszugeben in dem mann einen Pin einfach nur zum richting zeitpunkt ein und Ausschaltet dies ist führt jedoch zu einem PWM das schlicht und einfach zu langsam und ungenau ist.
-
+## Lösung
+Nach viel beratung mit verschiedenen lehrern denke ich das es nicht möglich ist dies effizietn und gut via Sowftware zu lösen deshalb werden wir warscheinlich auf unsere Sensorik Platine zusätzlich einen Spannugngsinvertierer einbauen. Dies löst nicht nur unser invertier Problem sonndern es verringert ebenfalls den Leistungsaufwand den unser ESP-32 C3 benötigt.
 **Aktuelle Lösung:** Invertierer Kaufen
