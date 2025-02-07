@@ -1,5 +1,14 @@
 # Diplomarbeit_Privat
 In diesem GitHub möchte ich Private überlegungen und irgendwelche überarbeitungen einfügen
+# Sensorik
+
+## Finale Platine
+Da nun alle Sensoren erfoglreich angesprochen werden und ein json file via ESP now erfolgreich an unser crow panel übermittelt wird, können wir nun an einer Finalen Platine arbeiten auf der wir schlussendlich unseren Main Prozessor und die ganze Sensorik aufstecken.
+
+![Image](https://github.com/user-attachments/assets/c360948d-a8a5-41f6-8eb9-f1140ebc984a)
+
+
+
 
 # PWM für motortreiber
 Um den Motortreiber erfolgreich anzusteuern müssen wir 4 PWM signal erzeugen. Zwei Rechteck signale und 2 invertierte Rechteck signale. Ein PWM kann man ganz einfach mit der PWM funktion generieren. Hier werden z.B zwei PWM signale auf Pin 14 und 15 ausgegben.
