@@ -1,9 +1,51 @@
 # Diplomarbeit_Privat
-In diesem GitHub möchte ich Private überlegungen und irgendwelche überarbeitungen einfügen
+__In diesem GitHub möchte ich Private überlegungen und irgendwelche überarbeitungen einfügen__
 # Mechanik
 # Sensorik
+Unser Geländefahrzeug soll in der Lage sein verschiedene Umweltdaten auszulesen und auch diese Daten zu verarbeit. Bei der Wahl welche Daten wir bewerten wollen haben wir uns für die folgenden entschieden.
+- GPS (Längengrad,Breitengrad,Höhe)
+- Umgebungstemperatur und Luftfeuchtigkeit
+- Luftqualität
+Do muss noch überall des Züg wegs dena sensora ihe sprich alls wichtig was i noch uf one note hob
+## GPS
+## Temperatur und Luftfeuchtigkeit
+Der DHT-Temperatursensor wird mit folgendem Code in betrieb genommen. Wie schon erwähnt kommuniziert der sensor mithilfe eines One-Wire Protocol. Der Pin der Bei uns die Daten überträgt ist der GPIO pin 0. Der Sensor verwendet hier noch die Library dht die wir auf dem ESP gespeichert haben.
+```python
+import time
+import dht
+from machine import Pin
 
-## Finale Platine
+# Configuration
+DHT_PIN = 0  # GPIO pin connected to the DHT sensor
+
+# Initialize the DHT11 sensor
+sensor = dht.DHT11(Pin(DHT_PIN))
+
+# Function to read sensor and print values
+def read_sensor():
+    try:
+        # Trigger sensor reading
+        sensor.measure()
+
+        # Read temperature and humidity
+        temperature = sensor.temperature()  # Temperature in Celsius
+        humidity = sensor.humidity()        # Humidity in percentage
+
+        # Print temperature and humidity values
+        print("Temperature: {}C".format(temperature))
+        print("Humidity: {}%".format(humidity))
+        
+    except OSError as e:
+        print("Failed to read sensor:", e)
+
+# Main loop
+while True:
+    read_sensor()  # Read and print the sensor data
+    
+```
+
+## Luftqualität
+# Finale Platine
 Da nun alle Sensoren erfoglreich angesprochen werden und ein json file via ESP now erfolgreich an unser crow panel übermittelt wird, können wir nun an einer Finalen Platine arbeiten auf der wir schlussendlich unseren Main Prozessor und die ganze Sensorik aufstecken.
 
 ![Image](https://github.com/user-attachments/assets/c360948d-a8a5-41f6-8eb9-f1140ebc984a)
@@ -57,3 +99,21 @@ Es ist natürlich auch möglich ein PWM auszugeben in dem mann einen Pin einfach
 ## Lösung
 Nach viel beratung mit verschiedenen lehrern denke ich das es nicht möglich ist dies effizietn und gut via Sowftware zu lösen deshalb werden wir warscheinlich auf unsere Sensorik Platine zusätzlich einen Spannugngsinvertierer einbauen. Dies löst nicht nur unser invertier Problem sonndern es verringert ebenfalls den Leistungsaufwand den unser ESP-32 C3 benötigt.
 **Aktuelle Lösung:** Invertierer Kaufen
+## Inverter
+Da wir nun genügend Zeit damit verbracht haben eine alternative softwarebasierte Lösung zu finden und ich leider nichts passendes, effizientes finden konnte, haben wir uns dazu entschieden einen Spannungsivertierer auf unsere Sensorik-platiene anzubringen. Dies ermöglicht uns nun Zeiteffizient und auch CPU schonend unser Motor PWM signal zu invertieren.
+
+![Image](https://github.com/user-attachments/assets/5ff5ee6e-1391-4428-b1d5-b5fad6f1b997)
+
+Wie man hier sehen kann konnten wir nun das Motor PWM singal erfoglreich Invertieren. Bei der Wahl des Spannungs - Invertierer haben wir uns aufgrund seiner schnellen Verfügbarkeit (Inventar des Magazin) für den SN7404N entschieden. 
+**Weiter Infos zum Invertierer Folgen**
+Da wir nun ein neues Element auf unserer Platine hatten mussten wir natürlich auch diese Überarbeiten
+
+![Image](https://github.com/user-attachments/assets/c097cd23-2256-4d22-99de-ad9c09f14903)
+
+Hier sieht man noch die überarbeitete Platine, wie man sehen kann haben wir unten links nun noch den SN70404N hinzugefügt
+
+## SN7404N
+Aufgrund seiner schnellen verfügbarkeit haben wir uns für diesen Invertierer entschieden. Das Datenblatt ist unter **Pfad zur PDF** zu finden. Dies ist ein Invertierer mit 6 invertier Kanälen. Jeweils A als eingang und Y als invertierter Ausgang.
+
+![Image](https://github.com/user-attachments/assets/5aeffba3-ae25-47b6-baff-d453fc7d5540)   ![Image](https://github.com/user-attachments/assets/e36dfa20-7b42-43d2-a582-4c266205eb7e)
+
