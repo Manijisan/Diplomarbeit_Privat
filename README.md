@@ -15,32 +15,32 @@ import time
 import dht
 from machine import Pin
 
-# Configuration
-DHT_PIN = 0  # GPIO pin connected to the DHT sensor
+# Configuration des OneWire Protocol ausgangsspin 
+DHT_PIN = 0  # GPIO pin connected to the DHT sensor  #In unserem Fall Pin 0
 
-# Initialize the DHT11 sensor
-sensor = dht.DHT11(Pin(DHT_PIN))
+# Initialisierung des DHT Sensors
+sensor = dht.DHT22(Pin(DHT_PIN))
 
-# Function to read sensor and print values
+# Funktion um den Sensor auszulesen mit Exception Handeling
 def read_sensor():
     try:
-        # Trigger sensor reading
+        # Erste Messung Starten
         sensor.measure()
 
-        # Read temperature and humidity
+        # Temperatur und Luftfeuchtigkeit ausmessen
         temperature = sensor.temperature()  # Temperature in Celsius
-        humidity = sensor.humidity()        # Humidity in percentage
+        humidity = sensor.humidity()        # Humidity in prozent
 
-        # Print temperature and humidity values
+        # Als veranschaulichung in der Konsole Ausgeben
         print("Temperature: {}C".format(temperature))
         print("Humidity: {}%".format(humidity))
         
     except OSError as e:
-        print("Failed to read sensor:", e)
+        print("Failed to read DHT sensor:", e)
 
 # Main loop
 while True:
-    read_sensor()  # Read and print the sensor data
+    read_sensor()  # Sensordaten lesen und ausgeben
     
 ```
 
